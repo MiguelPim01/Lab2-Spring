@@ -47,7 +47,6 @@ public class DepartamentoController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Departamento não encontrado!");
         }
 
-        departamentoRepository.deleteById(id);
         d.setId(id);
         departamentoRepository.save(d);
     }
