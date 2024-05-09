@@ -14,13 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.departamentoFuncionario.domain.Departamento;
+import com.example.departamentoFuncionario.domain.Funcionario;
 import com.example.departamentoFuncionario.repository.DepartamentoRepository;
+import com.example.departamentoFuncionario.repository.FuncionarioRepository;
 
 @RestController
-public class DepartamentoController {
+public class DepartamentoFuncionarioController {
     
     @Autowired
     private DepartamentoRepository departamentoRepository;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
 
     // GET e POST para endpoint ---> /departamentos
 
@@ -54,6 +59,18 @@ public class DepartamentoController {
     @DeleteMapping("/departamentos/{depId}")
     public void deleteDepartamento(@PathVariable(name = "depId") Long id) {
         departamentoRepository.deleteById(id);
+    }
+
+    // GET e POST para endpoint ---> /departamentos/{depId}/funcionarios
+
+    @GetMapping("/departamentos/{depId}/funcionarios")
+    public Iterable<Funcionario> getFuncionarios() {
+        return funcionarioRepository.findAll();
+    }
+
+    @PostMapping("/departamentos/{depId}/funcionarios")
+    public void postFuncionario(@RequestBody Funcionario f) {
+        funcionarioRepository.save(f);
     }
 
 }
