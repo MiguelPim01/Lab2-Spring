@@ -1,5 +1,6 @@
 package com.example.departamentoFuncionario.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -26,5 +27,13 @@ public class Departamento {
 
     @OneToMany(mappedBy = "departamento")
     private List<Funcionario> funcionarios;
+
+    public void addFuncionario(Funcionario f) {
+        if (funcionarios == null) {
+            funcionarios = new ArrayList<>();
+        }
+
+        funcionarios.add(f);
+    }
 
 }

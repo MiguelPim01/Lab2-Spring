@@ -1,5 +1,6 @@
 package com.example.departamentoFuncionario.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.departamentoFuncionario.domain.Departamento;
+import com.example.departamentoFuncionario.domain.Funcionario;
 import com.example.departamentoFuncionario.repository.DepartamentoRepository;
 import com.example.departamentoFuncionario.repository.FuncionarioRepository;
 
@@ -62,6 +64,20 @@ public class DepartamentoFuncionarioController {
 
     // GET e POST para endpoint ---> /departamentos/{depId}/funcionarios
 
-    
+    @GetMapping("/departamentos/{depId}/funcionarios")
+    public List<Funcionario> getFuncionariosByDepartamento(@PathVariable(name = "depId") Long depId) {
+        Optional<Departamento> d = departamentoRepository.findById(depId);
+
+        return d.get().getFuncionarios();
+    }
+
+    @PostMapping("/departamentos/{depId}/funcionarios")
+    public void postFuncionarioToDepartamento(@PathVariable(name = "depId") Long depId, @RequestBody Funcionario f) {
+        Optional<Departamento> d = departamentoRepository.findById(depId);
+        d.get().addFuncionario(f);
+        f.setDepartamento(d.get());
+
+        funcionarioRepository.save(f);
+    }
 
 }
