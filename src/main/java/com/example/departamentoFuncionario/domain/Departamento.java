@@ -1,6 +1,6 @@
 package com.example.departamentoFuncionario.domain;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +25,6 @@ public class Departamento {
     private String nome;
 
     @OneToMany(mappedBy = "departamento")
-    private ArrayList<Funcionario> funcionarios;
+    private List<Funcionario> funcionarios;
 
 }

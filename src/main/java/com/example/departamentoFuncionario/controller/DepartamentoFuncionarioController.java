@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.departamentoFuncionario.domain.Departamento;
-import com.example.departamentoFuncionario.domain.Funcionario;
 import com.example.departamentoFuncionario.repository.DepartamentoRepository;
 import com.example.departamentoFuncionario.repository.FuncionarioRepository;
 
@@ -47,7 +46,7 @@ public class DepartamentoFuncionarioController {
     }
 
     @PutMapping("/departamentos/{depId}")
-    public void postDepartamentoById(@PathVariable(name = "depId") Long id, @RequestBody Departamento d) {
+    public void putDepartamentoById(@PathVariable(name = "depId") Long id, @RequestBody Departamento d) {
         if (!departamentoRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Departamento não encontrado!");
         }
@@ -63,14 +62,6 @@ public class DepartamentoFuncionarioController {
 
     // GET e POST para endpoint ---> /departamentos/{depId}/funcionarios
 
-    @GetMapping("/departamentos/{depId}/funcionarios")
-    public Iterable<Funcionario> getFuncionarios() {
-        return funcionarioRepository.findAll();
-    }
-
-    @PostMapping("/departamentos/{depId}/funcionarios")
-    public void postFuncionario(@RequestBody Funcionario f) {
-        funcionarioRepository.save(f);
-    }
+    
 
 }
